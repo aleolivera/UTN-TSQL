@@ -1,0 +1,24 @@
+create table Carreras(
+	ID varchar(4) not null primary key,
+	nombre varchar(30) not null,
+	fechaCreacion datetime not null check (fechaCreacion<getdate()),
+	mail varchar(30) not null,
+	nivel varchar (11) check(nivel='Diplomatura' or nivel='Grado' or nivel='Pregrado' or nivel='posgrado'),
+)
+
+create table Materias(
+	ID smallint not null primary key identity (1,1),
+	IDcarrera varchar(4) not null foreign key references Carreras(ID),
+	nombre varchar(50) not null,
+	cargaHoraria smallint not null check(cargaHoraria>0),
+)
+
+create table Alumnos(
+	legajo bigint not null primary key identity(1000,1),
+	IDcarrera varchar(4) not null foreign key references Carreras(ID),
+	Apellidos varchar(50) not null,
+	nombres varchar(50) not null,
+	fechaNacimiento datetime not null check(fechaNacimiento>getdate()),
+	mail varchar(50) not null unique,
+	telefono varchar (20),
+)
